@@ -6,74 +6,162 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Inline animation + hero overrides to guarantee it works on GitHub Pages -->
   <style>
-  /* Force marquee animation */
-  .announcement-marquee {
-    width: 100%;
-    overflow: hidden;
-    background: linear-gradient(90deg, #00e0ff, #00bcd4);
-    padding: 0.6rem 0;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-  }
-
-  .marquee-text {
-    display: inline-block;
-    white-space: nowrap;
-    font-size: 1rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: #02101d;
-    animation: marqueeMove 12s linear infinite;
-  }
-
-  @keyframes marqueeMove {
-    0%   { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-
-  /* Force shimmer animation */
-  .water-shimmer {
-    position: absolute;
-    inset: 0;
-    background: url("images/jetski-cartoon-bg.jpg");
-    background-size: cover;
-    background-position: center;
-    mix-blend-mode: screen;
-    opacity: 0.12;
-    animation: shimmerMove 14s infinite linear;
-    z-index: 1;
-    pointer-events: none;
-    filter: brightness(1.6) blur(2px);
-  }
-
-  @keyframes shimmerMove {
-    0% {
-      transform: translateX(-20px) translateY(-20px);
+    /* Hero layout */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
     }
-    50% {
-      transform: translateX(20px) translateY(25px);
-    }
-    100% {
-      transform: translateX(-20px) translateY(-20px);
-    }
-  }
-</style>
 
+    /* Background image */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("images/jetski-cartoon-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.2);
+      z-index: -2;
+    }
+
+    /* Dark overlay for readability */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, transparent 20%, rgba(0, 0, 40, 0.9));
+      z-index: -1;
+    }
+
+    /* Water shimmer overlay (moving) */
+    .water-shimmer {
+      position: absolute;
+      inset: 0;
+      background: url("images/jetski-cartoon-bg.jpg");
+      background-size: cover;
+      background-position: center;
+      mix-blend-mode: screen;
+      opacity: 0.25; /* made stronger so you SEE it clearly */
+      animation: shimmerMove 10s infinite linear;
+      z-index: 0;
+      pointer-events: none;
+      filter: brightness(1.6) blur(2px);
+    }
+
+    @keyframes shimmerMove {
+      0% {
+        transform: translateX(-40px) translateY(-30px);
+      }
+      50% {
+        transform: translateX(40px) translateY(35px);
+      }
+      100% {
+        transform: translateX(-40px) translateY(-30px);
+      }
+    }
+
+    .hero-content {
+      text-align: center;
+      padding: 2rem;
+      max-width: 540px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo-wrapper {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.55);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .logo-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .tagline {
+      margin-top: 1.75rem;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    /* Buttons are already styled in styles.css (btn, primary-btn, secondary-btn) */
+
+    /* ===== Moving Marquee Banner at TOP ===== */
+    .announcement-marquee {
+      width: 100%;
+      overflow: hidden;
+      background: linear-gradient(90deg, #00e0ff, #00bcd4);
+      padding: 0.6rem 0;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+      position: sticky;
+      top: 0;
+      z-index: 9999;
+    }
+
+    .marquee-text {
+      display: inline-block;
+      white-space: nowrap;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #02101d;
+      animation: marqueeMove 12s linear infinite;
+    }
+
+    @keyframes marqueeMove {
+      0%   { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    @media (max-width: 600px) {
+      .logo-wrapper {
+        width: 160px;
+        height: 160px;
+      }
+      .tagline {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-  <!-- 🔵 TOP SCROLLING MARQUEE AT PAGE TOP -->
+  <!-- TOP SCROLLING MARQUEE -->
   <div class="announcement-marquee">
     <div class="marquee-text">
-      Introducing India’s First Ever Water Karting Adventure — Launching in Hyderabad!
+      ✨ Introducing India’s First Ever Aqua Karting Adventure — Launched in Hyderabad! ✨
     </div>
   </div>
 
-  <!-- 🔵 HERO SECTION -->
+  <!-- HERO SECTION -->
   <div class="hero">
     <div class="hero-overlay"></div>
     <div class="water-shimmer"></div>
@@ -97,3 +185,4 @@
 
 </body>
 </html>
+
